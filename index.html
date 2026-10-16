@@ -3,15 +3,19 @@
 <head>
   <meta charset="utf-8">
   <title>Redirecting…</title>
-  <link rel="canonical" href="https://script.google.com/a/macros/redhat.com/s/AKfycbwfUYGuVP67LVV95STy85hMaeX8SZXDhek0PvM8LY8CF8GW11zOwhGZB8Xc1fR9NuQx/exec">
-  <meta http-equiv="refresh" content="0; url=https://script.google.com/a/macros/redhat.com/s/AKfycbwfUYGuVP67LVV95STy85hMaeX8SZXDhek0PvM8LY8CF8GW11zOwhGZB8Xc1fR9NuQx/exec">
   <script>
-    var target = "https://script.google.com/a/macros/redhat.com/s/AKfycbwfUYGuVP67LVV95STy85hMaeX8SZXDhek0PvM8LY8CF8GW11zOwhGZB8Xc1fR9NuQx/exec";
-    location.replace(target + location.search + location.hash);
+    (function () {
+      var fallback = "https://script.google.com/macros/s/DEPLOYMENT_ID/exec";
+      function go(url) { location.replace(url + location.search + location.hash); }
+      fetch("target.json?t=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (data) { go(data.url || fallback); })
+        .catch(function () { go(fallback); });
+    })();
   </script>
 </head>
 <body>
-  <p>Redirecting to the Fancy Calculator…
-     <a href="https://script.google.com/a/macros/redhat.com/s/AKfycbwfUYGuVP67LVV95STy85hMaeX8SZXDhek0PvM8LY8CF8GW11zOwhGZB8Xc1fR9NuQx/exec">Continue</a></p>
+  <p>Redirecting…
+     <a href="https://script.google.com/macros/s/DEPLOYMENT_ID/exec">Continue</a></p>
 </body>
 </html>
